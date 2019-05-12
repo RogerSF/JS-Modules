@@ -1,2 +1,2 @@
 # JS-Modules
-react/angular framework
+React/Angular JS framework
