@@ -2,25 +2,28 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-
+/** 
 class Square extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            value: null;
-        };
-
-    }
-
-
   render() {
     return (
-      <button className="square" onClick={()=>alert('click')}>
-        {/* TODO */ this.props.value}
+      <button 
+      className="square" 
+      onClick={()=>this.props.onClick()}>
+        { this.props.value}
       </button>
     );
   }
 }
+*/
+function Square(props) {
+  return (
+    <button className="squares" onClick={props.onClick}> 
+      {props.value}
+    </button>
+    );
+
+}
+
 
 class ShoppingList extends React.Component {
   render() {
@@ -38,12 +41,34 @@ class ShoppingList extends React.Component {
 }
 
 class TieToeBoard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      squares: Array(9).fill(' '),
+      xIsNext: true,
+    }
+  }
+
+  handleClick(i) {
+    const squares = this.state.squares.slice();
+    squares[i] = this.state.xIsNext ? 'X' : 'O'; // how could you change a const variable??
+    this.setState({
+      squares:squares,
+      xIsNext: !this.state.xIsNext,
+    });
+  }
+
   renderSquare(i) {
-    return <Square value={i} />;
+    return <Square 
+    value={this.state.squares[i]} 
+    onClick={()=>this.handleClick(i)}
+    />;
   }
 
   render() {
-    const status = 'Next player: X';
+    var temp = this.state.xIsNext ? 'X': 'O';
+    const status = 'Next player: ' + temp;
+    // var yourTurn = true;
 
     return (
       <div>
